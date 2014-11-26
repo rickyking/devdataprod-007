@@ -16,6 +16,7 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
       p("Due to getting the real time data, each manipulation will take some time, please be patient!"),
+      a("Link to Source code", href="https://github.com/rickyking/devdataprod-007"),
       p("This is done for coursera course - data science track - Developping Data Project (7th run)"),
       p("The package used in the application is: `weatherData`"),
       h3("Search Functionality"),
