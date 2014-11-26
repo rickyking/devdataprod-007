@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the user-interface definition of a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\n\nshinyUI(fluidPage(\n  \n  # Application title\n  titlePanel(\"weather Data Presenter - Developping Data Project\"),\n  \n  # Sidebar with a slider input for number of bins\n  sidebarLayout(\n    sidebarPanel(\n      p(\"Due to getting the real time data, each manipulation will take some time, please be patient!\"),\n      p(\"This is done for coursera course - data science track - Developping Data Project (7th run)\"),\n      p(\"The package used in the application is: `weatherData`\"),\n      h3(\"Search Functionality\"),\n      p(\"In the following box, you can type a city name in US. The select box will return\n        the nearest airport to this city.\"),\n      textInput(\"citySearch\",\n                \"Search a city:\",\n                \"New York\"),\n      selectInput(\"cityResult\",\n                  \"Search Result:\",\n                  c()),\n      p(\"Please select a date range to get the weather data.\"),\n      dateRangeInput(\"dateRange\", \"Select a range of Date\", max = Sys.Date(), start = Sys.Date() - 1,end = Sys.Date() - 1),\n      actionButton(\"checkDateAvail\", \"Check Availability\"),\n      br(),\n      uiOutput(\"available\"),\n      hr(),\n      h3(\"Get data and plot\"),\n      p(\"If data available, you can get the data by using the button below\"),\n      checkboxInput(\"detailedData\", \"Detailed data (more data beside temperature)\", value = FALSE),\n      actionButton(\"getData\", \"Get Data!\"),\n      p(\"Once the data is retrieved, you can navigate the data table and the plot in the right hand side.\")\n    ),\n    \n    # Show a plot of the generated distribution\n    mainPanel(\n      tabsetPanel(\n        tabPanel(\"Data Table\",dataTableOutput(\"mytable\")),\n        tabPanel(\"Temperature Plot\", plotOutput(\"tempPlot\"))\n      )\n    )\n  )\n))\n",
+    "created" : 1416408810304.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "251009260",
+    "id" : "4A929881",
+    "lastKnownWriteTime" : 1416409960,
+    "path" : "~/Dropbox/01.02.Study Notes/datasciencecoursera/devdataprod-007/shinyApp/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

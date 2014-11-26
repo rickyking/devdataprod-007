@@ -1,0 +1,16 @@
+{
+    "contents" : "\n# This is the server logic for a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\nlibrary(weatherData)\nlibrary(ggplot2)\nshinyServer(function(input, output, session) {\n  \n  observe({\n    # observe the return of search\n    stations <- getStationCode(input$citySearch)[[1]]\n    choices <- stations$airportCode\n    names(choices) <- stations$Station\n    updateSelectInput(session, \"cityResult\", choices = choices)\n  })\n  \n  output$available <- renderUI({\n    if (input$checkDateAvail==0) return(NULL)\n    isolate({\n      # observe the data availability\n      progress <- shiny::Progress$new(session, min=1, max=15)\n      progress$set(value = 5, message = \"checking availability...\")\n      check_flag <- checkDataAvailabilityForDateRange(input$cityResult, input$dateRange[1], input$dateRange[2])\n      progress$set(value = 14, message = \"Done...\")\n      if (check_flag) {\n        progress$close()\n        return(HTML('Data Status: <span class=\"label label-success\">Available</span>'))\n      } else {\n        progress$close()\n        return(HTML('Data Status: <span class=\"label label-warning\">Not Available</span>'))\n      }\n    }) \n  })\n  \n  weather_dat <- reactive({\n    # get data once clicked getData button\n    city <- input$cityResult\n    dateRange <- input$dateRange\n    detailed <- input$detailedData\n    if (input$getData == 0) return(NULL)\n    isolate({\n      progress <- shiny::Progress$new(session, min=1, max=15)\n      if (detailed) {\n        progress$set(message=\"getting data...\", value = 7)\n        dat <- getWeatherForDate(city, dateRange[1], end_date=dateRange[2], opt_detailed=TRUE, opt_all_columns = T)\n        progress$set(message=\"printing data...\", value = 14)\n        progress$close()\n        return(dat)\n      } else {\n        progress$set(message=\"getting data...\", value = 7)\n        dat <- getWeatherForDate(city, dateRange[1], end_date=dateRange[2], opt_detailed=TRUE, opt_all_columns = F)\n        progress$set(message=\"printing data...\", value = 14)\n        progress$close()\n        return(dat)\n      }\n    })\n  })\n  \n  output$mytable <- renderDataTable({\n    if (input$getData == 0) return(NULL)\n    isolate({\n      dat <- as.data.frame(weather_dat())\n      return(dat)\n    })\n  })\n  \n  output$tempPlot <- renderPlot({\n    if (input$getData == 0) return(NULL)\n    qplot(Time, TemperatureF, data = weather_dat(), geom = c(\"point\", \"smooth\"))\n  })\n})\n",
+    "created" : 1416311896224.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1016281842",
+    "id" : "443D372A",
+    "lastKnownWriteTime" : 1416409675,
+    "path" : "C:/Users/yjin/Dropbox/01.02.Study Notes/datasciencecoursera/devdataprod-007/shinyApp/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

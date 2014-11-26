@@ -1,0 +1,17 @@
+{
+    "contents" : "weatherDataShinyApp\n========================================================\nauthor: Yi JIN\ndate: `r Sys.Date()`\nfont-family: 'Helvetica'\n\n```{r echo=FALSE}\nlibrary(weatherData)\nlibrary(shiny)\n```\n\n\nIdea\n========================================================\n\nMy idea to create this application is to make a package/API more playable. By using the package [weatherData](http://ram-n.github.io/weatherData/).\n\nThe package try to get the data from [Weather Undergroud](http://www.wunderground.com). This is really interesting to get the historical data to do the analysis. \n\nMy application illustrate the main functionality of the package: get the airport code for the city and with the code get the weather data with or without detailed information in the selected date range.\n\nFunctionality of Airport Code search\n========================================================\n\nWith the function `getStationCode()`, here is an example:\n\n```{r}\ngetStationCode(\"New York\") \n```\n\nThe first element return the two results of the search. We then put the search result in \"select input\" widget to leave the user to choose the airport.\n\n\nCheck data availability\n========================================================\n\n<small>\nEach time, we provide the action button \"check availability\". Once the user click on that button. We will use the function `checkDataAvailabilityForDateRange()` in order to see if the data is available. Here is an example of return (1 for available):\n\n```{r eval=FALSE}\ncheckDataAvailabilityForDateRange(\"KJFK\", start=\"2014-11-20\", end = \"2014-11-20\")\n```\n```{r echo=FALSE}\n1\n```\n</small>\n\nGet and show the data\n========================================================\n\nOnce the data is available. Click on the \"Get data\" button. Now you should wait a moment in order to get the real time data via API of weather underground.\n\n```{r echo=T, cache=T, eval=FALSE}\ngetWeatherForDate(\"KJFK\", start=\"2014-11-20\", end = \"2014-11-20\", opt_detailed = T)\n```\n\n",
+    "created" : 1416515080677.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1745437125",
+    "id" : "69BAF8E4",
+    "lastKnownWriteTime" : 1416517453,
+    "path" : "~/Dropbox/01.02.Study Notes/datasciencecoursera/devdataprod-007/pitchDevDatProd/weatherDataShinyApp.Rpres",
+    "project_path" : "weatherDataShinyApp.Rpres",
+    "properties" : {
+        "ignored_words" : "Yi,Sys,Helvetica\n"
+    },
+    "source_on_save" : false,
+    "type" : "r_presentation"
+}
